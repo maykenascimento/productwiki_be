@@ -8,6 +8,19 @@ var router = express.Router();
 var User = require('../models/user');
 var Product = require('../models/product');
 
+router.get('/health', function (req, res) {
+  var states = ['disconnected', 'connected', 'connecting', 'disconnecting'];
+  var state = mongoose.connection.readyState;
+  var healthy = state === 1;
+
+  return res.status(healthy ? 200 : 503).json({
+    success: healthy,
+    status: healthy ? 'ok' : 'degraded',
+    database: states[state] || 'unknown',
+    uptime: Math.floor(process.uptime())
+  });
+});
+
 router.post('/signup', async function (req, res, next) {
   var username = typeof req.body.username === 'string' ? req.body.username.trim() : '';
   var password = typeof req.body.password === 'string' ? req.body.password : '';
