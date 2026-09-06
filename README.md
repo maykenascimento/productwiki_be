@@ -574,3 +574,15 @@ See the `LICENSE` file for details.
 ProductWiki is currently an experimental open-source project.
 
 The repository represents the beginning of the idea rather than a completed implementation. The architecture, API and schemas are expected to evolve substantially as the project is revived and the universal product model is defined.
+
+
+## Task #40 Python API prototype
+
+A small dependency-free backend prototype is also included in `backend/`. It provides an in-memory product API for validating the initial resource flow without requiring MongoDB or third-party Python packages.
+
+```bash
+python -m unittest backend.test_app
+python -m backend
+```
+
+See [`backend/API.md`](backend/API.md) for the endpoint contract. The Python prototype is intentionally non-persistent and is not a replacement for the existing Node.js application; it is a focused API design and test harness for the initial backend phase.
